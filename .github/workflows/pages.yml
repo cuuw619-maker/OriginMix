@@ -30,11 +30,18 @@ jobs:
       - name: Fix project-site paths
         shell: bash
         run: |
+          set -e
           while IFS= read -r -d '' file; do
-            sed -i 's#/OriginWEB/#/OriginMix/#g' "$file"
-            sed -i 's#/OriginWEB"#/OriginMix"#g' "$file"
-            sed -i "s#/OriginWEB'#\/OriginMix'#g" "$file"
-          done < <(find . -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.json' \) -print0)
+            sed -i 's#/OriginWEB#/OriginMix#g; s#OriginWEB#OriginMix#g' "$file"
+          done < <(find . -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.json' -o -name '*.xml' \) -print0)
+
+      - name: Verify deployment paths
+        shell: bash
+        run: |
+          if grep -RIn --include='*.html' --include='*.css' --include='*.js' --include='*.json' '/OriginWEB' .; then
+            echo 'ERROR: stale /OriginWEB paths remain in deploy artifact.'
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
