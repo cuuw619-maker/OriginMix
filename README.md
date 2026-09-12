@@ -10,4 +10,4 @@ OOSP - OriginWEB open source project
   style="border-radius: 10px;" 
 />
        
-<a href="https://quandz24-ui.github.io/OriginWEB/">https://quandz24-ui.github.io/OriginWEB/</a>
+<a href="https://cuuw619-maker.github.io/OriginMix/">https://cuuw619-maker.github.io/OriginMix/</a>
